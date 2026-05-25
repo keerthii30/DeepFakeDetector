@@ -1,165 +1,245 @@
+````markdown
 # DeepFake Detector
 
-A deep learning-based system for detecting manipulated (deepfake) videos. This project provides tools for training models to distinguish between real and fake videos, and includes deployable applications for real-time detection.
+A deep learning-based system for detecting manipulated (deepfake) videos. This project provides tools for training models to distinguish between real and fake videos and includes deployable applications for real-time deepfake detection.
 
-# Check it out
+---
 
-Try the latest deployment of the Deepfake detector here:
-[Deepfake Detection App](https://deepfakedetection.up.railway.app)
-
-## Project Overview
+# Project Overview
 
 This repository contains a complete pipeline for deepfake detection:
 
-1. **Training**: Jupyter notebooks for model training and evaluation
-2. **Model Deployment**: Flask-based web application for deepfake detection
-3. **Final Deployment**: Production-ready web application for user interaction
+- Training and evaluation notebooks
+- Flask-based deployment application
+- Production-ready web interface for user interaction
 
-The system utilizes a combination of:
-- ResNext50 for feature extraction
-- LSTM for temporal feature analysis
-- Face recognition for focusing on facial regions
+The system utilizes:
 
-## Directory Structure
+- ResNext50 for spatial feature extraction
+- LSTM for temporal sequence learning
+- Face Recognition for detecting and focusing on facial regions
 
-- **Training/**: Contains Jupyter notebook for model training and testing
-  - `Model_train.ipynb`: Main notebook for training the model
-  - `Preprocess.py`: python file for preprocessing data
+---
 
-- **Deepfake_detector_model_deployment/**: Contains the main model deployment app
-  - `app.py`: Flask application for video analysis
-  - `templates/`: Contains the web interface
-  - `Dockerfile`: For containerizing the application
-  - `requirements.txt`: Dependencies for the application
+# Repository Structure
 
-- **Final_Deployment/**: Contains the production-ready application
-  - `app.py`: Simplified Flask application
-  - `templates/`: Contains the final user interface
+```bash
+DeepFakeDetector/
+│
+├── Training/
+│   ├── Model_train.ipynb
+│   └── Preprocess.py
+│
+├── Deepfake_detector_model_deployment/
+│   ├── app.py
+│   ├── templates/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── model/
+│
+├── Final_Deployment/
+│   ├── app.py
+│   └── templates/
+│
+└── README.md
+````
 
-## How It Works
+---
 
-The system follows these steps for deepfake detection:
+# Features
 
-1. Video upload through web interface
-2. Frame extraction from the video
-3. Face detection and extraction for each frame
+* Deepfake video detection using deep learning
+* Facial region extraction for improved accuracy
+* Real-time prediction through web interface
+* Confidence score for prediction reliability
+* Flask-based deployment
+
+---
+
+# How It Works
+
+The detection pipeline follows these steps:
+
+1. Video upload through the web interface
+2. Frame extraction from uploaded video
+3. Face detection and extraction
 4. Feature extraction using ResNext50
-5. Temporal feature analysis using LSTM
-6. Classification as real or fake with confidence score
+5. Temporal sequence analysis using LSTM
+6. Final classification as Real or Fake
 
-## Model Architecture
+---
 
-The neural network architecture consists of:
-- Feature Extractor: ResNext50_32x4d (pretrained on ImageNet)
-- Sequence Modeling: LSTM
-- Classification: Fully connected layer
+# Model Architecture
 
-## Dataset
+## Feature Extractor
 
-The model was trained on a combination of dataset:
-- FaceForensics++ (FF)
+* ResNext50_32x4d pretrained on ImageNet
 
-## Requirements
+## Temporal Modeling
 
-See `requirements.txt` for detailed dependencies. Major requirements:
-- Python 3.12.x
-- PyTorch
-- OpenCV
-- Flask
-- Face Recognition
-- dlib
+* LSTM network for sequential frame analysis
 
-## Installation and Setup
+## Classification Layer
 
-### Option 1: Using Docker
+* Fully connected neural network layer
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/dattaaaaa/deepfakedetector.git
-   cd DeepFakeDetector
-   ```
+---
 
-2. Build and run the Docker container:
-   ```
-   cd Deepfake_detector_model_deployment
-   docker build -t deepfake-detector .
-   docker run -p 3000:3000 deepfake-detector
-   ```
+# Dataset
 
-3. Access the application at `http://localhost:3000`
+The model was trained using:
 
-### Option 2: Manual Setup
+* FaceForensics++ (FF++)
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/DeepFakeDetector.git
-   cd DeepFakeDetector
-   ```
+---
 
-2. Create and activate a virtual environment:
-   ```
-   python -m venv venv
-   # On Windows
-   venv\Scripts\activate
-   # On macOS/Linux
-   source venv/bin/activate
-   ```
+# Requirements
 
-3. Install dependencies:
-   ```
-   cd Deepfake_detector_model_deployment
-   pip install -r requirements.txt
-   ```
+Major dependencies:
 
-4. Run the application:
-   ```
-   python app.py
-   ```
+* Python 3.12.x
+* PyTorch
+* OpenCV
+* Flask
+* Face Recognition
+* dlib
 
-5. Access the application at `http://localhost:3000`
+Install dependencies:
 
-### Option 3: Use existing Docker-image
-1. Pull the image and run it:
-   ```
-   docker pull bharshavardhanreddy924/deepfake_detection
-   docker run -p 8080:8080 --name deepfake_detector bharshavardhanreddy924/deepfake_detection
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-## Training Your Own Model
+---
 
-1. Prepare your dataset with real and fake videos
-2. Open `Training/Model_train.ipynb` in Jupyter Notebook or Google Colab
-3. Follow the instructions in the notebook to train the model
-4. The trained model will be saved as `df_model.pt`
-5. Place the model in the `model/` directory of the deployment application
+# Running the Application
 
-## Using the Web Interface
+## Clone Repository
 
-1. Access the application through your browser
-2. Upload a video file (supported formats: mp4, avi, mov, wmv, mkv)
-3. Click "Detect Deepfake"
-4. Wait for the analysis to complete
-5. View the result showing real/fake prediction with confidence score
+```bash
+git clone https://github.com/keerthii30/DeepFakeDetector.git
+cd DeepFakeDetector
+```
 
-## Model Performance
+## Create Virtual Environment
 
-The model achieves:
-- High accuracy in detecting manipulated videos
-- Real-time performance for quick analysis
-- Special focus on facial regions for better reliability
+### Windows
 
-## Limitations
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
 
-- Performance may vary depending on video quality
-- Face detection might fail in low light or obscured faces
-- Large videos may take longer to process
+### macOS/Linux
 
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
+---
 
+# Install Dependencies
 
+```bash
+cd Deepfake_detector_model_deployment
+pip install -r requirements.txt
+```
 
-## Acknowledgments
+---
 
-- The developers of PyTorch, OpenCV, and Face Recognition
-- Contributors to the deepfake detection research community
-- Datasets used for training: FaceForensics++
+# Run Application
+
+```bash
+python app.py
+```
+
+Access the application at:
+
+```bash
+http://localhost:3000
+```
+
+---
+
+# Training Your Own Model
+
+1. Prepare dataset containing real and fake videos
+2. Open `Training/Model_train.ipynb`
+3. Train the model using Jupyter Notebook or Google Colab
+4. Save the trained model as:
+
+```bash
+df_model.pt
+```
+
+5. Place the model inside:
+
+```bash
+Deepfake_detector_model_deployment/model/
+```
+
+---
+
+# Web Interface Usage
+
+1. Open the web application
+2. Upload a video file
+
+Supported formats:
+
+* mp4
+* avi
+* mov
+* mkv
+* wmv
+
+3. Click **Detect Deepfake**
+4. Wait for processing
+5. View prediction result with confidence score
+
+---
+
+# Model Performance
+
+The model provides:
+
+* High accuracy in manipulated video detection
+* Efficient real-time analysis
+* Improved reliability using facial region extraction
+
+---
+
+# Limitations
+
+* Performance may vary with video quality
+* Face detection may fail in low-light conditions
+* Large videos require longer processing time
+
+---
+
+# Note
+
+The trained model file (`df_model.pt`) is excluded from this repository due to GitHub file size limitations.
+
+---
+
+# Acknowledgments
+
+* PyTorch
+* OpenCV
+* Face Recognition Library
+* Deepfake Detection Research Community
+* FaceForensics++ Dataset
+
+---
+
+# Author
+
+Keerthi Thatikonda
+
+GitHub Repository:
+[https://github.com/keerthii30/DeepFakeDetector](https://github.com/keerthii30/DeepFakeDetector)
+
+```
+```
